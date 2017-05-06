@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel = "stylesheet" href="calc.css">
+</head>
+<body>
+
+<div id = "content">
+<form id = "housePrice">
+	<label id = "propPrice">Property Price:</label> <input type ="text" name = "propertyPrice" placeholder = "Enter Property Price"><br>
+	<label id = "bidPrice">Bid Price:</label><input type ="text" name = "bidPrice" placeholder = "Enter Bid Price"><br>
+</form>
+
+<p id = "output"></p>
+<button onclick = "calculateTax()">Submit</button>
+</div>
+
+<img src = "saes.png" alt="saes" id="saesPic">
+
+<script>
+function calculateTax() {
+	var propertyPrice = document.getElementById("housePrice").elements[0].value;
+	var bidPrice = document.getElementById("housePrice").elements[1].value;
+	var tax = 0.0;
+	var ceiling = 0.0;
+	var taxText = "";
+	var ceilingText = "";
+
+	if (propertyPrice >= 1 && propertyPrice < 500000) {
+		taxText = "40%";
+		ceilingText = "Unlimited";
+		tax = 40.0;
+		ceiling = 99999999999;
+	}
+	else if (propertyPrice > 500000 && propertyPrice <= 1000000) {
+		taxText = "33.30%";
+		ceilingText = "750%"
+		tax = 33.30;
+		ceiling = 7.5;
+	}
+	else if (propertyPrice > 1000000 && propertyPrice <= 2500000) {
+		taxText = "25%";
+		ceilingText = "600%"
+		tax = 25.0;
+		ceiling = 6.0;
+	}
+	else if (propertyPrice > 2500000 && propertyPrice <= 5000000) {
+		taxText = "25%";
+		ceilingText = "500%";
+		tax = 25.0;
+		ceiling = 5.0;
+	}
+	else if (propertyPrice > 5000000) {
+		taxText = "10%";
+		ceilingText = "400%";
+		tax = 10.0;
+		ceiling = 4.0;
+	}
+
+	tax = ((bidPrice / 100) * tax).toFixed(2);
+	ceiling = propertyPrice * ceiling;
+
+	document.getElementById("output").innerHTML = "Property Tax Rate: " + taxText + "<br>" + "Property Tax: " + tax + "<br>" + "Ceiling Bracket: " + ceilingText + "<br>" + "Auction Ceiling: " + ceiling;
+}
+</script>
+
+</body>
+</html>
